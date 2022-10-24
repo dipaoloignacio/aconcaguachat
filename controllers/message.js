@@ -1,0 +1,29 @@
+const Message = require('../models/mensaje');
+
+const obtenerChat = async (req, res) => {
+    const miId = req.uid
+    const messageFrom = req.params.de
+
+    const last30 = await Message.find({
+        $or: [
+            {
+                from: miId,
+                to: messageFrom
+            },
+            {
+                from: messageFrom,
+                to: miId
+            },
+
+        ]
+    }).sort({createdAt: 'desc'}).limit(30);
+
+    res.json({
+        ok: true,
+        msg: last30
+    });
+}
+
+module.exports = {
+    obtenerChat
+}
