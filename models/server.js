@@ -1,6 +1,6 @@
 // Servidor de Express
 const express = require('express');
-const http = require('http');
+const http = require('https');
 const socketio = require('socket.io');
 const path = require('path');
 const cors = require('cors');
@@ -11,7 +11,7 @@ class Server {
 
     constructor() {
         this.app = express();
-        this.port = process.env.PORT;
+        this.port = process.env.PORT || 3000;
 
         //conectar a DB
         dbConection();
@@ -24,7 +24,7 @@ class Server {
             cors: {
                 origin: ["https://aconcaguachat.herokuapp.com"],
             }
-         });
+        });
     }
 
     middlewares() {
