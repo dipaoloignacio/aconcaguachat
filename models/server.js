@@ -20,7 +20,11 @@ class Server {
         this.server = http.createServer(this.app);
 
         // Configuraciones de sockets
-        this.io = socketio(this.server, { /* configuraciones */ });
+        this.io = socketio(this.server, {
+            cors: {
+                origin: ["https://aconcaguachat.herokuapp.com"],
+            }
+         });
     }
 
     middlewares() {
@@ -57,7 +61,6 @@ class Server {
             console.log('Server corriendo en puerto:', this.port);
         });
     }
-
 }
 
 module.exports = Server;
