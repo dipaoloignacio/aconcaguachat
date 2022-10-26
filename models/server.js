@@ -11,7 +11,7 @@ class Server {
 
     constructor() {
         this.app = express();
-        this.port = process.env.PORT || 443;
+        this.port = process.env.PORT || 5000;
 
         //conectar a DB
         dbConection();
@@ -22,7 +22,10 @@ class Server {
         // Configuraciones de sockets
         this.io = socketio(this.server, {
             cors: {
-                origin: ["https://aconcaguachat.herokuapp.com"],
+                cors: {
+                    origin: "*",
+                    methods: ["GET", "POST"]
+                }
             }
         });
     }
