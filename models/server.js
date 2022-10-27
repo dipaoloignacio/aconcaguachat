@@ -31,7 +31,6 @@ class Server {
         // CORS
         this.app.use(cors());
 
-
         // Parseo del body
         this.app.use(express.json());
 
