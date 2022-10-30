@@ -45,6 +45,14 @@ class Sockets {
                 this.io.to(payload.to).emit('mensaje-personal', message)
             })
 
+            socket.on('send-notification', (payload) => {
+                this.io.to(payload.to).emit('getNotification', {
+                    notifi: payload.msgSinLeer,
+                    to: payload.to,
+                    from: payload.from
+                })
+            })
+
             //TODO disconected
             socket.on('disconnect', async () => {
                 await userDisconect(uid);
@@ -54,7 +62,7 @@ class Sockets {
         });
     }
 
-    
+
 
 }
 
