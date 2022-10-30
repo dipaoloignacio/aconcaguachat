@@ -28,9 +28,7 @@ class Sockets {
 
             //TODO validar jwt
             //si token no es valido, desconectar
-
             //TODO saber que usuario esta activo mediante uid
-
             //TODO emitir todos los usuarios conectados
 
             this.io.emit('users-list', await userList())
@@ -44,6 +42,14 @@ class Sockets {
                 this.io.to(payload.from).emit('mensaje-personal', message)
                 this.io.to(payload.to).emit('mensaje-personal', message)
             })
+            socket.on('send-notification', (payload) => {
+
+                this.io.to(payload.to).emit('getNotification', {
+                    notifi: payload.msgSinLeer,
+                    to: payload.to,
+                    from: payload.from
+                })
+            })
 
             //TODO disconected
             socket.on('disconnect', async () => {
@@ -54,7 +60,7 @@ class Sockets {
         });
     }
 
-    
+
 
 }
 

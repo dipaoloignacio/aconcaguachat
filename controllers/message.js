@@ -3,24 +3,16 @@ const Message = require('../models/mensaje');
 const obtenerChat = async (req, res) => {
     const miId = req.uid
     const messageFrom = req.params.de
-
-    const last30 = await Message.find({
+    const last100 = await Message.find({
         $or: [
-            {
-                from: miId,
-                to: messageFrom
-            },
-            {
-                from: messageFrom,
-                to: miId
-            },
-
+            { from: miId, to: messageFrom },
+            { from: messageFrom, to: miId }
         ]
-    }).sort({createdAt: 'desc'}).limit(30);
+    }).sort({ createdAt: 'asc' }).limit(100);
 
     res.json({
         ok: true,
-        msg: last30
+        msg: last100
     });
 }
 
